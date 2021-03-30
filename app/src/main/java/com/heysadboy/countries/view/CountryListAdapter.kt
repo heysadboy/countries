@@ -3,10 +3,13 @@ package com.heysadboy.countries.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.heysadboy.countries.R
 import com.heysadboy.countries.model.Country
+import com.heysadboy.countries.util.getProgressDrawable
+import com.heysadboy.countries.util.loadImage
 
 
 class CountryListAdapter(var countries: ArrayList<Country>) :
@@ -29,9 +32,16 @@ class CountryListAdapter(var countries: ArrayList<Country>) :
     }
 
     class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val countryName: TextView = view.findViewById(R.id.name)
+
+        private val imageView = view.findViewById<ImageView>(R.id.image_view)
+        private val countryName = view.findViewById<TextView>(R.id.name)
+        private val countryCapital = view.findViewById<TextView>(R.id.capital)
+        private val progressDrawable = getProgressDrawable(view.context)
+
         fun bind(country: Country) {
             countryName.text = country.countryName
+            countryCapital.text = country.capital
+            imageView.loadImage(country.flag, progressDrawable)
         }
     }
 
